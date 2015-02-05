@@ -1,25 +1,21 @@
-{% extends "layout.html" %}
+<!-- correctly link bower components, make jscript objects usable, -->
 
-{% block content %}
 
-  <!-- {% for hotel in all_hotels %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="../public/css/style.css" rel="stylesheet" type="text/css"> -->
 
-    <li>{{hotel.name}}</li>
-
-  {% endfor %}
-
-  {% for restaurant in all_restaurants %}
-    
-    <li>{{restaurant.name}}</li>
+</head>
+<body>
+  <div class="map-canvas" style="width: 100%; height: 100%"></div>
   
-  {% endfor %}
+  <!-- <li>{{all_hotels}}</li> -->
 
-  {% for thing in all_things_to_do %}
-
-    <li>{{thing.name}}</li>
-
-  {% endfor %} -->
-
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- <script src="../public/js/scripts.js"></script> -->
   <script>
     {% autoescape false %}
     var all_hotels = {{ hotels | json }};
@@ -27,5 +23,33 @@
     var all_things_to_do = {{ things_to_do | json }};
     {% endautoescape %}
   </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkSl5upooA9Q2BWinSzb4i-itNZpIusdQ&sensor=true"></script>
+  <script type="text/javascript">
+     function initialize_gmaps() {
+    // initialize new google maps LatLng object
+    var myLatlng = new google.maps.LatLng(40.705786,-74.007672);
+    // set the map options hash
+    var mapOptions = {
+        center: myLatlng,
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    // get the maps div's HTML obj
+    var map_canvas_obj = document.getElementById("map-canvas");
+    // initialize a new Google Map with the options
+    var map = new google.maps.Map(map_canvas_obj, mapOptions);
+    // Add the marker to the map
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        title:"Hello World!"
+    });
+    // Add the marker to the map by calling setMap()
+    marker.setMap(map);
+}
 
-{% endblock %}
+$(document).ready(function() {
+    initialize_gmaps();
+});
+   </script>
+</body>
+</html>
