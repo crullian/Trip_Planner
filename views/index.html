@@ -1,9 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
-  <h1>Hello World</h1>
-</body>
-</html>
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <!-- {% for hotel in all_hotels %}
+
+    <li>{{hotel.name}}</li>
+
+  {% endfor %}
+
+  {% for restaurant in all_restaurants %}
+    
+    <li>{{restaurant.name}}</li>
+  
+  {% endfor %}
+
+  {% for thing in all_things_to_do %}
+
+    <li>{{thing.name}}</li>
+
+  {% endfor %} -->
+
+  <script>
+    {% autoescape false %}
+    var all_hotels = {{ hotels | json }};
+    var all_restaurants = {{ restaurants | json }};
+    var all_things_to_do = {{ things_to_do | json }};
+    {% endautoescape %}
+  </script>
+
+{% endblock %}

@@ -5,7 +5,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 var Place;
 var Hotel;
-var ThingsToDo;
+var ThingToDo;
 var Restaurant;
 
 var Schema = mongoose.Schema;
@@ -29,7 +29,7 @@ var hotelSchema = new Schema({
   amenities: String // comma delimited str list
 });
 
-var thingsToDoSchema = new Schema({
+var thingToDoSchema = new Schema({
   name: String,
   place: String,
   age_range: String
@@ -48,13 +48,13 @@ var retaurantSchema = new Schema({
 
 Place = mongoose.model('Place', placeSchema);
 Hotel = mongoose.model('Hotel', hotelSchema);
-ThingsToDo = mongoose.model('ThingsToDo', thingsToDoSchema);
+ThingToDo = mongoose.model('ThingToDo', thingToDoSchema);
 Restaurant = mongoose.model('Restaurant', retaurantSchema);
 
 
 module.exports = {
   'Place': Place,
   'Hotel': Hotel,
-  'ThingsToDo': ThingsToDo,
+  'ThingToDo': ThingToDo,
   'Restaurant': Restaurant
 }
