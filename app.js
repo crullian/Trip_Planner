@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var routes = require('./routes');
+var sassMiddleware = require('node-sass-middleware');
 
 
 var app = express();
@@ -11,6 +12,7 @@ app.listen(3000, function() {
 })
 
 app.set('views', './views');
+
 
 app.use(express.static('public'));
 app.use('/', routes);
