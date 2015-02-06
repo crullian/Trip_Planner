@@ -4,28 +4,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>iTrip Planner</title>
   <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- <link href="../public/css/style.css" rel="stylesheet" type="text/css"> -->
+   <link href="style.css" rel="stylesheet" type="text/css"> 
 
 </head>
 <body>
-  <div class="map-canvas" style="width: 100%; height: 100%"></div>
+  <div class="navbar navbar-default navbar-fixed-top">
+    <h1>iTrip Planner</h1>
+  </div>
+
+
+  <div id="map-canvas" class="col-lg-8 col-md-8" ></div>
   
-  <!-- <li>{{all_hotels}}</li> -->
+  <div class="calendar col-md-4 col-lg-4">
+      <div class="container day next-day">
+        <div class="hotel-section">
+          <h2 class="retro">Hotels</h2>
+
+          <div class="row">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                  Local Hotels
+                  <span class="caret"></span>
+                </button>
+                <ul id="hotel-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                </ul>
+            </div>
+            <button type = 'button' class="remove-hotel btn btn-danger">Remove</button>
+          </div>
+
+        </div>
+        <div class="rest-section">
+          <h2 class="retro">Restaurants</h2>
+          <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                  Local Restaurants
+                  <span class="caret"></span>
+                </button>
+                <ul id="rest-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                </ul>
+            </div>
+          <button type = 'button' class="remove-hotel btn btn-danger">Remove</button>
+        </div>
+        <div class="ttd-section">
+          <h2 class="retro">Things To Do</h2>
+          <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                  Things To Do
+                  <span class="caret"></span>
+                </button>
+                <ul id="ttd-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                </ul>
+            </div>
+          <button type = 'button' class="remove-hotel btn btn-danger">Remove</button>
+        </div>
+      </div>
+      <div class="container day all-days">
+        <h1>Vacation plan</h1>
+          <div class="hotel-section">
+          <h2 class="retro">Hotels</h2>
+          <!--    Javascript    -->
+          <button type = 'button' class="remove-hotel btn btn-danger">Remove</button>
+        </div>
+        <div class="rest-section">
+          <h2 class="retro">Restaurants</h2>
+          <!--    Javascript    -->
+          <button type = 'button' class="remove-hotel btn btn-danger">Remove</button>
+        </div>
+        <div class="ttd-section">
+          <h2 class="retro">Things To Do</h2>
+          <!--    Javascript    -->
+          <button type = 'button' class="remove-hotel btn btn-danger">Remove</button>
+        </div>
+      </div>
+  </div>
+
 
   <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- <script src="../public/js/scripts.js"></script> -->
-  <script>
+ <script>
     {% autoescape false %}
-    var all_hotels = {{ hotels | json }};
-    var all_restaurants = {{ restaurants | json }};
-    var all_things_to_do = {{ things_to_do | json }};
+    var all_hotels = {{ all_hotels | json }};
+    var all_restaurants = {{ all_restaurants | json }};
+    var all_things_to_do = {{ all_things_to_do | json }};
     {% endautoescape %}
   </script>
+  
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkSl5upooA9Q2BWinSzb4i-itNZpIusdQ&sensor=true"></script>
   <script type="text/javascript">
-     function initialize_gmaps() {
+    function initialize_gmaps() {
     // initialize new google maps LatLng object
     var myLatlng = new google.maps.LatLng(40.705786,-74.007672);
     // set the map options hash
@@ -46,10 +115,55 @@
     // Add the marker to the map by calling setMap()
     marker.setMap(map);
 }
-
 $(document).ready(function() {
     initialize_gmaps();
+    
+    var hotel = document.getElementById('hotel-menu')
+    all_hotels.forEach(function(row){
+      var a = document.createElement('a');
+      var t = document.createTextNode(row.name);
+      var place = document.createElement('li');
+      a.appendChild(t);
+      a.role="menuitem";
+      a.href="#";
+      a.tabindex='-1';
+      place.appendChild(a);
+      place.role="presentation";
+      hotel.appendChild(place);
+    })
+
+    var hotel = document.getElementById('rest-menu')
+    all_restaurants.forEach(function(row){
+      var a = document.createElement('a');
+      var t = document.createTextNode(row.name);
+      var place = document.createElement('li');
+      a.appendChild(t);
+      a.role="menuitem";
+      a.href="#";
+      a.tabindex='-1';
+      place.appendChild(a);
+      place.role="presentation";
+      hotel.appendChild(place);
+    })
+
+    var hotel = document.getElementById('ttd-menu')
+    all_things_to_do.forEach(function(row){
+      var a = document.createElement('a');
+      var t = document.createTextNode(row.name);
+      var place = document.createElement('li');
+      a.appendChild(t);
+      a.role="menuitem";
+      a.href="#";
+      a.tabindex='-1';
+      place.appendChild(a);
+      place.role="presentation";
+      hotel.appendChild(place);
+    })
+
 });
    </script>
+
+
+
 </body>
 </html>

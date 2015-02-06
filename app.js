@@ -10,7 +10,7 @@ var app = express();
 
 app.listen(3000, function() {
   console.log("Magic happens on port 3000...");
-})
+});
 swig.setDefaults({
   cache: false
 })
@@ -20,9 +20,8 @@ app.set('view engine', 'html');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(
   sass({
     src: __dirname + '/assets', //where the sass files are 
@@ -30,7 +29,7 @@ app.use(
     debug: true
   })
 );
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use('/', routes);
 
