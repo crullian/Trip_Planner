@@ -15,9 +15,9 @@
   </div>
 
 
-  <div id="map-canvas" class="col-lg-8 col-md-8" ></div>
+  <div id="map-canvas" class="col-lg-9 col-md-9" ></div>
   
-  <div class="calendar col-md-4 col-lg-4">
+  <div class="calendar col-md-3 col-lg-3">
       <div class="container day next-day">
         <div class="hotel-section">
           <h2 class="retro">Hotels</h2>
@@ -31,33 +31,37 @@
                 <ul id="hotel-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                 </ul>
             </div>
-            <button type = 'button' class="remove-hotel btn btn-danger">Remove</button>
+            <button type = 'button' class="remove-hotel rem btn btn-danger ">Remove</button>
           </div>
 
         </div>
         <div class="rest-section">
           <h2 class="retro">Restaurants</h2>
-          <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                  Local Restaurants
-                  <span class="caret"></span>
-                </button>
-                <ul id="rest-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                </ul>
-            </div>
-          <button type = 'button' class="remove-hotel btn btn-danger">Remove</button>
+          <div class="row">
+            <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                    Local Restaurants
+                    <span class="caret"></span>
+                  </button>
+                  <ul id="rest-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                  </ul>
+              </div>
+            <button type = 'button' class="remove-hotel rem btn btn-danger ">Remove</button>
+        </div>
         </div>
         <div class="ttd-section">
           <h2 class="retro">Things To Do</h2>
-          <div class="dropdown">
+            <div class="row">
+              <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                   Things To Do
                   <span class="caret"></span>
                 </button>
                 <ul id="ttd-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                 </ul>
+              </div>
+               <button type = 'button' class="remove-hotel rem btn btn-danger ">Remove</button>
             </div>
-          <button type = 'button' class="remove-hotel btn btn-danger">Remove</button>
         </div>
       </div>
       <div class="container day all-days">
@@ -101,7 +105,7 @@
     var mapOptions = {
         center: myLatlng,
         zoom: 16,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.HYBRID
     };
     // get the maps div's HTML obj
     var map_canvas_obj = document.getElementById("map-canvas");
@@ -118,46 +122,35 @@
 $(document).ready(function() {
     initialize_gmaps();
     
+    function createListItem(name){
+      var a = document.createElement('a');
+      var t = document.createTextNode(name);
+      var place = document.createElement('li');
+      a.appendChild(t);
+      a.role="menuitem";
+      a.href="#";
+      a.tabindex='-1';
+      place.appendChild(a);
+      place.role="presentation";
+      return place;
+    }
+
     var hotel = document.getElementById('hotel-menu')
     all_hotels.forEach(function(row){
-      var a = document.createElement('a');
-      var t = document.createTextNode(row.name);
-      var place = document.createElement('li');
-      a.appendChild(t);
-      a.role="menuitem";
-      a.href="#";
-      a.tabindex='-1';
-      place.appendChild(a);
-      place.role="presentation";
+      var place = createListItem(row.name);
       hotel.appendChild(place);
     })
 
-    var hotel = document.getElementById('rest-menu')
+    var rest = document.getElementById('rest-menu')
     all_restaurants.forEach(function(row){
-      var a = document.createElement('a');
-      var t = document.createTextNode(row.name);
-      var place = document.createElement('li');
-      a.appendChild(t);
-      a.role="menuitem";
-      a.href="#";
-      a.tabindex='-1';
-      place.appendChild(a);
-      place.role="presentation";
-      hotel.appendChild(place);
+      var place = createListItem(row.name);
+      rest.appendChild(place);
     })
 
-    var hotel = document.getElementById('ttd-menu')
+    var ttd = document.getElementById('ttd-menu')
     all_things_to_do.forEach(function(row){
-      var a = document.createElement('a');
-      var t = document.createTextNode(row.name);
-      var place = document.createElement('li');
-      a.appendChild(t);
-      a.role="menuitem";
-      a.href="#";
-      a.tabindex='-1';
-      place.appendChild(a);
-      place.role="presentation";
-      hotel.appendChild(place);
+      var place = createListItem(row.name);
+      ttd.appendChild(place);
     })
 
 });

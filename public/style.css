@@ -26,3 +26,6 @@ body {
 .navbar h1 {
   padding-left: 50px; }
 
+.btn {
+  float: left; }
+
